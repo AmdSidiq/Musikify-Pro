@@ -28,3 +28,8 @@ def baca_semua_lagu(nama_file=NAMA_FILE_DATA):
         print(f"File '{nama_file}' belum ditemukan. Inisialisasi file baru.")
         inisialisasi_file(nama_file)
     return daftar_baris
+
+def tulis_laporan(nama_file, konten):
+    with open(nama_file, 'w', encoding='utf-8') as file:
+        file.write(konten)
+    print(f"Laporan berhasil ditulis ke '{nama_file}'!")
