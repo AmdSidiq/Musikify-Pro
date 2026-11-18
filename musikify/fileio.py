@@ -10,3 +10,8 @@ def inisialisasi_file(nama_file=NAMA_FILE_DATA):
         return True
     except FileExistsError:
         return False
+
+def tambah_lagu(nama_file, baris_data):
+    with open(nama_file, 'a', encoding='utf-8') as file:
+        file.write(baris_data.strip() + "\n")
+    print(f"Lagu berhasil ditambahkan ke '{nama_file}'!")
