@@ -15,3 +15,16 @@ def tambah_lagu(nama_file, baris_data):
     with open(nama_file, 'a', encoding='utf-8') as file:
         file.write(baris_data.strip() + "\n")
     print(f"Lagu berhasil ditambahkan ke '{nama_file}'!")
+
+def baca_semua_lagu(nama_file=NAMA_FILE_DATA):
+    daftar_baris = []
+    try:
+        with open(nama_file, 'r', encoding='utf-8') as file:
+            for baris in file:
+                baris_bersih = baris.strip()
+                if baris_bersih and not baris_bersih.startswith("judul"):
+                    daftar_baris.append(baris_bersih)
+    except FileNotFoundError:
+        print(f"File '{nama_file}' belum ditemukan. Inisialisasi file baru.")
+        inisialisasi_file(nama_file)
+    return daftar_baris
