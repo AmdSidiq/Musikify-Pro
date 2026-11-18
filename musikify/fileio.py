@@ -33,3 +33,10 @@ def tulis_laporan(nama_file, konten):
     with open(nama_file, 'w', encoding='utf-8') as file:
         file.write(konten)
     print(f"Laporan berhasil ditulis ke '{nama_file}'!")
+
+def simpan_semua_lagu(nama_file, daftar_baris):
+    with open(nama_file, 'w', encoding='utf-8') as file:
+        file.write(HEADER_FILE + "\n")
+        for baris in daftar_baris:
+            file.write(baris.strip() + "\n")
+    print(f"Data berhasil disinkronkan ke '{nama_file}'!")
