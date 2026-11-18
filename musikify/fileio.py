@@ -1,3 +1,9 @@
+# ============================================================
+# fileio.py - Modul File Input/Output
+# Menangani seluruh operasi file data dengan 4 mode:
+# 'x' (create), 'a' (append), 'r' (read iteratif), 'w' (write/overwrite)
+# ============================================================
+
 NAMA_FILE_DATA = "data_musik.txt"
 NAMA_FILE_LAPORAN = "laporan_musik.txt"
 HEADER_FILE = "judul|artis|genre|durasi|tahun"
