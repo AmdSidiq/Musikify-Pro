@@ -36,6 +36,22 @@ def validasi_tahun(tahun_str):
 
     return tahun
 
+# Validasi field teks agar tidak kosong
+def validasi_teks(teks, nama_field="Field"):
+    """
+    Memeriksa string input agar tidak kosong atau hanya berupa spasi whitespace.
+    - Melempar ValueError jika string kosong.
+    - Mengembalikan string yang telah di-strip.
+    """
+    if teks is None:
+        raise ValueError(f"{nama_field} wajib diisi!")
+
+    teks_bersih = str(teks).strip()
+    if not teks_bersih:
+        raise ValueError(f"{nama_field} tidak boleh kosong!")
+
+    return teks_bersih
+
 def validasi_baris_data(baris):
     try:
         baris = baris.strip()
