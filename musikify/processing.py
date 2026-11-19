@@ -317,3 +317,77 @@ class KoleksiMusik:
         Menyaring lagu bergenre tertentu menggunakan filter() bawaan dan lambda.
         """
         return list(filter(lambda l: l.genre.lower() == genre.lower(), self.daftar_lagu))
+
+    # ========================================================
+    # OPERASI KELOLA DATA (CRUD) & PERSISTENSI
+    # ========================================================
+    def tambah_lagu(self, lagu):
+        """Menambahkan satu objek Lagu ke dalam koleksi."""
+        if isinstance(lagu, Lagu):
+            self.daftar_lagu.append(lagu)
+            return True
+        return False
+
+    def hapus_lagu_by_index(self, index):
+        """Menghapus lagu pada indeks tertentu dari koleksi."""
+        if 0 <= index < len(self.daftar_lagu):
+            return self.daftar_lagu.pop(index)
+        return None
+
+    def update_lagu_by_index(self, index, lagu_baru):
+        """Memperbarui data lagu pada indeks tertentu."""
+        if 0 <= index < len(self.daftar_lagu) and isinstance(lagu_baru, Lagu):
+            self.daftar_lagu[index] = lagu_baru
+            return True
+        return False
+
+    def muat_dari_baris(self, daftar_baris):
+        """
+        Merekonsiliasi data dari kumpulan baris teks file tabular.
+        Mengabaikan data yang rusak tanpa menghentikan program.
+        """
+        self.daftar_lagu.clear()
+        berhasil = 0
+        for baris in daftar_baris:
+            lagu = Lagu.from_line(baris)
+            if lagu:
+                self.daftar_lagu.append(lagu)
+                berhasil += 1
+        return berhasil
+
+    def to_lines(self):
+        """Mengonversi seluruh objek Lagu menjadi daftar baris string file."""
+        return [l.to_line() for l in self.daftar_lagu]
+
+    def generate_laporan(self):
+        """
+        Menghasilkan string laporan statistik dan daftar katalog lagu lengkap.
+        """
+        if not self.daftar_lagu:
+            return "Koleksi musik masih kosong.\n"
+
+        lap = "=" * 55 + "\n"
+        lap += "         LAPORAN SISTEM MANAJEMEN MUSIK - MUSIKIFY\n"
+        lap += "=" * 55 + "\n\n"
+
+        total_durasi = self.hitung_total_durasi()
+        rata2 = self.rata_rata_durasi()
+        genre_pop, jumlah_pop = self.genre_terpopuler()
+
+        lap += f"Total Lagu        : {len(self.daftar_lagu)} lagu\n"
+        lap += f"Total Waktu Putar : {total_durasi // 60}m {total_durasi % 60:02d}s\n"
+        lap += f"Rata-rata Durasi  : {int(rata2) // 60}:{int(rata2) % 60:02d}\n"
+        lap += f"Genre Terpopuler  : {genre_pop} ({jumlah_pop} lagu)\n\n"
+
+        lap += "SEBARAN DISTRIBUSI GENRE:\n" + "-" * 35 + "\n"
+        for g, jml in sorted(self.lagu_per_genre().items()):
+            bar = "#" * jml
+            lap += f"  {g:<14}: {bar} ({jml})\n"
+
+        lap += "\nDAFTAR KATALOG LAGU (Terurut Berdasarkan Judul):\n" + "-" * 55 + "\n"
+        terurut = self.urutkan_lagu(berdasarkan="judul", reverse=False, algoritma="merge_sort")
+        for i, l in enumerate(terurut, 1):
+            lap += f"  {i:>2}. {l.info_lengkap()}\n"
+
+        lap += "\n" + "=" * 55 + "\n"
+        return lap
