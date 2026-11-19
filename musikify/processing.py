@@ -1,3 +1,12 @@
+# ============================================================
+# processing.py - Modul Pengolahan Data Musik, Sorting & Searching
+# Berisi 2 class utama:
+# 1. Class Lagu: Merepresentasikan entitas objek data lagu.
+# 2. Class KoleksiMusik: Mengelola koleksi, kalkulasi agregat,
+#    algoritma pengurutan (Merge Sort & Selection Sort),
+#    serta algoritma pencarian (Linear Search & Binary Search).
+# ============================================================
+
 class Lagu:
     """
     Class untuk merepresentasikan sebuah entitas lagu.
