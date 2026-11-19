@@ -80,3 +80,19 @@ def validasi_baris_data(baris):
     except (ValueError, IndexError) as err:
         print(f"Baris dilewati karena format rusak ({err}): {baris}")
         return None
+
+# Validasi pilihan menu navigasi angka (untuk CLI / dialog)
+def validasi_pilihan_menu(pilihan_str, max_opsi=7):
+    """
+    Memvalidasi input pilihan angka menu (0 hingga max_opsi).
+    Mengembalikan integer jika valid, atau -1 jika gagal.
+    """
+    try:
+        pilihan = int(pilihan_str)
+        if pilihan < 0 or pilihan > max_opsi:
+            print(f"Pilihan '{pilihan_str}' di luar rentang 0 - {max_opsi}!")
+            return -1
+        return pilihan
+    except (ValueError, TypeError):
+        print(f"Pilihan '{pilihan_str}' bukan angka valid!")
+        return -1
