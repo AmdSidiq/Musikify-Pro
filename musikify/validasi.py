@@ -53,6 +53,12 @@ def validasi_teks(teks, nama_field="Field"):
     return teks_bersih
 
 def validasi_baris_data(baris):
+    """
+    Mem-parsing dan memvalidasi satu baris data dari file tabular.
+    - Jika format baris rusak atau tidak lengkap, baris dilewati (skip).
+    - Mencegah UI atau program utama dari crash tiba-tiba saat file korup.
+    - Mengembalikan dictionary jika valid, atau None jika baris tidak valid.
+    """
     try:
         baris = baris.strip()
         if not baris or baris.startswith("judul"):
