@@ -175,3 +175,78 @@ def binary_search_judul(daftar_lagu, target_judul):
             high = mid - 1
 
     return None
+
+class KoleksiMusik:
+    """
+    Class utama untuk mengelola koleksi lagu, agregasi data,
+    serta antarmuka sorting dan searching.
+    """
+
+    def __init__(self):
+        self.daftar_lagu = []
+
+    # ========================================================
+    # PENERAPAN *args - Variadic Positional Arguments
+    # ========================================================
+    def tambah_banyak_lagu(self, *lagu):
+        """
+        Menambahkan banyak objek Lagu sekaligus ke dalam koleksi menggunakan *args.
+        Mengembalikan jumlah lagu yang berhasil ditambahkan.
+        """
+        jumlah = 0
+        for item in lagu:
+            if isinstance(item, Lagu):
+                self.daftar_lagu.append(item)
+                jumlah += 1
+        return jumlah
+
+    def hitung_total_durasi(self, *durasi_tambahan):
+        """
+        Menghitung akumulasi durasi seluruh lagu dalam koleksi,
+        ditambah durasi ekstra opsional melalui *args.
+        """
+        total = sum(l.durasi for l in self.daftar_lagu)
+        for ekstra in durasi_tambahan:
+            if isinstance(ekstra, (int, float)):
+                total += int(ekstra)
+        return total
+
+    # ========================================================
+    # PENERAPAN **kwargs - Variadic Keyword Arguments
+    # ========================================================
+    def buat_record_lagu(self, **kwargs):
+        """
+        Membuat record Lagu baru dengan properti input variatif menggunakan **kwargs.
+        Menyediakan nilai default aman jika atribut tertentu tidak dikirim.
+        """
+        lagu_baru = Lagu(
+            judul=kwargs.get("judul", "Unknown Title"),
+            artis=kwargs.get("artis", "Unknown Artist"),
+            genre=kwargs.get("genre", "Pop"),
+            durasi=kwargs.get("durasi", 180),
+            tahun=kwargs.get("tahun", 2024)
+        )
+        self.daftar_lagu.append(lagu_baru)
+        return lagu_baru
+
+    def filter_lagu(self, **kwargs):
+        """
+        Menyaring koleksi lagu berdasarkan berbagai kriteria fleksibel menggunakan **kwargs.
+        Contoh: filter_lagu(genre="Rock", tahun_min=2000, durasi_max=300)
+        """
+        hasil = list(self.daftar_lagu)
+
+        if "genre" in kwargs and kwargs["genre"]:
+            g = kwargs["genre"].lower()
+            hasil = [l for l in hasil if l.genre.lower() == g]
+
+        if "tahun_min" in kwargs and kwargs["tahun_min"] is not None:
+            hasil = [l for l in hasil if l.tahun >= kwargs["tahun_min"]]
+
+        if "tahun_max" in kwargs and kwargs["tahun_max"] is not None:
+            hasil = [l for l in hasil if l.tahun <= kwargs["tahun_max"]]
+
+        if "durasi_max" in kwargs and kwargs["durasi_max"] is not None:
+            hasil = [l for l in hasil if l.durasi <= kwargs["durasi_max"]]
+
+        return hasil
