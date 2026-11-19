@@ -18,6 +18,24 @@ def validasi_durasi(durasi_str):
 
     return durasi
 
+# Validasi tahun rilis lagu
+def validasi_tahun(tahun_str):
+    """
+    Memvalidasi tahun rilis lagu.
+    - Wajib berupa angka integer.
+    - Rentang yang diizinkan: 1900 hingga 2030.
+    - Melempar ValueError jika input di luar batas wajar.
+    """
+    try:
+        tahun = int(tahun_str)
+    except (ValueError, TypeError):
+        raise ValueError(f"Tahun '{tahun_str}' bukan angka yang valid!")
+
+    if tahun < 1900 or tahun > 2030:
+        raise ValueError(f"Tahun rilis harus berada dalam rentang 1900 - 2030 (diberikan: {tahun})!")
+
+    return tahun
+
 def validasi_baris_data(baris):
     try:
         baris = baris.strip()
