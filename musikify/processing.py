@@ -391,3 +391,41 @@ class KoleksiMusik:
 
         lap += "\n" + "=" * 55 + "\n"
         return lap
+
+# ============================================================
+# BLOK PENGUJIAN LOKAL - Hanya dieksekusi jika file di-run langsung
+# ============================================================
+if __name__ == '__main__':
+    print("=== Pengujian Mandiri Modul processing.py ===")
+    koleksi = KoleksiMusik()
+
+    # Uji **kwargs
+    koleksi.buat_record_lagu(judul="Bohemian Rhapsody", artis="Queen", genre="Rock", durasi=354, tahun=1975)
+    koleksi.buat_record_lagu(judul="Shape of You", artis="Ed Sheeran", genre="Pop", durasi=234, tahun=2017)
+    koleksi.buat_record_lagu(judul="Blinding Lights", artis="The Weeknd", genre="Pop", durasi=200, tahun=2020)
+
+    # Uji *args
+    l1 = Lagu("Hotel California", "Eagles", "Rock", 391, 1977)
+    l2 = Lagu("Billie Jean", "Michael Jackson", "Pop", 294, 1982)
+    koleksi.tambah_banyak_lagu(l1, l2)
+
+    print(f"Total Lagu: {len(koleksi.daftar_lagu)}")
+    print(f"Total Durasi (*args): {koleksi.hitung_total_durasi(60, 40)} detik")
+    print(f"Rata-rata Durasi: {koleksi.rata_rata_durasi():.2f} detik")
+
+    # Uji Sorting Merge Sort
+    print("\n--- Hasil Merge Sort (by Durasi Ascending) ---")
+    sorted_durasi = koleksi.urutkan_lagu(berdasarkan="durasi", reverse=False, algoritma="merge_sort")
+    for s in sorted_durasi:
+        print(f"  {s.durasi}s - {s.judul}")
+
+    # Uji Searching Linear & Binary
+    print("\n--- Uji Linear Search ('queen') ---")
+    hasil_lin = koleksi.cari_lagu("queen")
+    print(f"  Ditemukan: {[l.judul for l in hasil_lin]}")
+
+    print("\n--- Uji Binary Search ('Shape of You') ---")
+    hasil_bin = koleksi.cari_biner_judul("Shape of You")
+    print(f"  Ditemukan: {hasil_bin}")
+
+    print("\n[OK] Pengujian lokal processing.py selesai dengan sukses!")
