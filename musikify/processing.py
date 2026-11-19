@@ -250,3 +250,30 @@ class KoleksiMusik:
             hasil = [l for l in hasil if l.durasi <= kwargs["durasi_max"]]
 
         return hasil
+
+    # ========================================================
+    # METODE ANALISIS & STATISTIK
+    # ========================================================
+    def rata_rata_durasi(self):
+        """Menghitung rata-rata durasi lagu dalam detik (aman dari ZeroDivisionError)."""
+        if not self.daftar_lagu:
+            return 0.0
+        return sum(l.durasi for l in self.daftar_lagu) / len(self.daftar_lagu)
+
+    def lagu_per_genre(self):
+        """Menghitung frekuensi kemunculan lagu untuk setiap genre musik."""
+        genre_count = {}
+        for lagu in self.daftar_lagu:
+            genre_count[lagu.genre] = genre_count.get(lagu.genre, 0) + 1
+        return genre_count
+
+    def genre_terpopuler(self):
+        """
+        Mencari genre yang memiliki lagu terbanyak menggunakan lambda.
+        Mengembalikan tuple (nama_genre, jumlah).
+        """
+        distribusi = self.lagu_per_genre()
+        if not distribusi:
+            return ("-", 0)
+        # Penggunaan lambda untuk menentukan nilai maksimum berdasarkan value dict
+        return max(distribusi.items(), key=lambda item: item[1])
