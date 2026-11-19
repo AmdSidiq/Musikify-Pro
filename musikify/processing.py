@@ -277,3 +277,43 @@ class KoleksiMusik:
             return ("-", 0)
         # Penggunaan lambda untuk menentukan nilai maksimum berdasarkan value dict
         return max(distribusi.items(), key=lambda item: item[1])
+
+    # ========================================================
+    # PENCARIAN & PENGURUTAN (SORTING & SEARCHING)
+    # ========================================================
+    def cari_lagu(self, keyword, field="semua"):
+        """Pencarian linier fleksibel pada koleksi lagu."""
+        return linear_search(self.daftar_lagu, keyword, field=field)
+
+    def cari_biner_judul(self, target_judul):
+        """Pencarian biner cepat berdasarkan judul lagu."""
+        return binary_search_judul(self.daftar_lagu, target_judul)
+
+    def urutkan_lagu(self, berdasarkan="judul", reverse=False, algoritma="merge_sort"):
+        """
+        Mengurutkan daftar lagu menggunakan lambda sebagai key pembanding.
+        Mendukung pemilihan algoritma: 'merge_sort' (default/optimasi),
+        'selection_sort', atau 'python_sort' (Timsort bawaan).
+        """
+        key_map = {
+            "judul": lambda l: l.judul.lower(),
+            "artis": lambda l: l.artis.lower(),
+            "genre": lambda l: l.genre.lower(),
+            "durasi": lambda l: l.durasi,
+            "tahun": lambda l: l.tahun
+        }
+        key_func = key_map.get(berdasarkan.lower(), key_map["judul"])
+
+        if algoritma == "selection_sort":
+            return selection_sort(self.daftar_lagu, key_func=key_func, reverse=reverse)
+        elif algoritma == "python_sort":
+            return sorted(self.daftar_lagu, key=key_func, reverse=reverse)
+        else:
+            # Default ke Merge Sort (O(n log n) - Optimasi Algoritma Khusus)
+            return merge_sort(self.daftar_lagu, key_func=key_func, reverse=reverse)
+
+    def filter_by_genre(self, genre):
+        """
+        Menyaring lagu bergenre tertentu menggunakan filter() bawaan dan lambda.
+        """
+        return list(filter(lambda l: l.genre.lower() == genre.lower(), self.daftar_lagu))
