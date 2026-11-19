@@ -56,8 +56,6 @@ def merge_sort(daftar, key_func=lambda x: x, reverse=False):
     """
     Algoritma Merge Sort (Divide and Conquer - Rekursif).
     - Memecah daftar menjadi 2 sub-daftar, mengurutkan secara rekursif, lalu menggabungkannya.
-    - Kompleksitas Waktu: O(n log n) pada Best, Average, dan Worst Case.
-    - Stabil dan sangat efisien untuk dataset berukuran besar.
     """
     if len(daftar) <= 1:
         return list(daftar)
@@ -92,7 +90,6 @@ def selection_sort(daftar, key_func=lambda x: x, reverse=False):
     """
     Algoritma Selection Sort (Sesuai Materi Modul 10).
     - Mencari elemen minimum/maksimum dari bagian belum terurut, lalu menukarnya ke depan.
-    - Kompleksitas Waktu: O(n^2).
     """
     data = list(daftar)
     n = len(data)
@@ -111,3 +108,70 @@ def selection_sort(daftar, key_func=lambda x: x, reverse=False):
             data[i], data[target_idx] = data[target_idx], data[i]
 
     return data
+
+# ============================================================
+# ALGORITMA PENCARIAN (SEARCHING)
+# ============================================================
+
+def linear_search(daftar_lagu, keyword, field="semua"):
+    """
+    Algoritma Linear Search (Pencarian Linier berurutan satu per satu).
+    - Memeriksa setiap elemen lagu secara sekuensial.
+    - Mendukung filter field: 'semua', 'judul', 'artis', atau 'genre'.
+    """
+    kw = str(keyword).lower().strip()
+    if not kw:
+        return list(daftar_lagu)
+
+    hasil = []
+    for lagu in daftar_lagu:
+        cocok = False
+        if field == "judul":
+            cocok = kw in lagu.judul.lower()
+        elif field == "artis":
+            cocok = kw in lagu.artis.lower()
+        elif field == "genre":
+            cocok = kw in lagu.genre.lower()
+        else:  # Field 'semua'
+            cocok = (kw in lagu.judul.lower() or
+                     kw in lagu.artis.lower() or
+                     kw in lagu.genre.lower())
+
+        if cocok:
+            hasil.append(lagu)
+
+    return hasil
+
+
+def binary_search_judul(daftar_lagu, target_judul):
+    """
+    Algoritma Binary Search (Pencarian Biner Bagi-Dua).
+    - Bekerja pada daftar lagu yang telah terurut berdasarkan judul.
+    - Membagi interval pencarian menjadi dua bagian secara berulang.
+    - Mengembalikan objek Lagu yang cocok atau None jika tidak ditemukan.
+    """
+    if not daftar_lagu:
+        return None
+
+    # Pastikan data terurut berdasarkan judul secara alfabetis
+    lagu_terurut = merge_sort(daftar_lagu, key_func=lambda l: l.judul.lower())
+    target = str(target_judul).lower().strip()
+
+    low = 0
+    high = len(lagu_terurut) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        mid_val = lagu_terurut[mid].judul.lower()
+
+        if mid_val == target:
+            return lagu_terurut[mid]  # Ditemukan tepat
+        elif target in mid_val:
+            # Jika target merupakan substring judul tengah
+            return lagu_terurut[mid]
+        elif mid_val < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return None
