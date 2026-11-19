@@ -1,3 +1,23 @@
+# Validasi durasi lagu dalam satuan detik
+def validasi_durasi(durasi_str):
+    """
+    Memvalidasi input durasi lagu.
+    - Wajib berupa angka integer positif.
+    - Batas: > 0 detik dan <= 3600 detik (1 jam).
+    - Melempar ValueError jika input tidak valid.
+    """
+    try:
+        durasi = int(durasi_str)
+    except (ValueError, TypeError):
+        raise ValueError(f"Durasi '{durasi_str}' bukan angka yang valid!")
+
+    if durasi <= 0:
+        raise ValueError(f"Durasi lagu harus lebih dari 0 detik (diberikan: {durasi})!")
+    if durasi > 3600:
+        raise ValueError(f"Durasi lagu maksimal 3600 detik/1 jam (diberikan: {durasi})!")
+
+    return durasi
+
 def validasi_baris_data(baris):
     try:
         baris = baris.strip()
