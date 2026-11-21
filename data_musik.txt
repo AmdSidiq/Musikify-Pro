@@ -1,0 +1,2 @@
+judul|artis|genre|durasi|tahun
+No Surprises|Radiohead|Pop|229|1998

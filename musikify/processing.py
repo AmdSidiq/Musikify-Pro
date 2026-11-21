@@ -7,6 +7,12 @@
 #    serta algoritma pencarian (Linear Search & Binary Search).
 # ============================================================
 
+try:
+    from .validasi import validasi_baris_data
+except ImportError:
+    from validasi import validasi_baris_data
+
+
 class Lagu:
     """
     Class untuk merepresentasikan sebuah entitas lagu.
