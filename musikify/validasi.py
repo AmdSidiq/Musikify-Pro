@@ -1,3 +1,10 @@
+# ============================================================
+# validasi.py - Modul Validasi Input dan Integritas Data
+# Berisi fungsi-fungsi untuk memastikan keamanan tipe data,
+# batas nilai input (range checking), serta parsing baris file.
+# Menggunakan penanganan eksepsi (try/except) dan pelemparan error (raise).
+# ============================================================
+
 # Validasi durasi lagu dalam satuan detik
 def validasi_durasi(durasi_str):
     """

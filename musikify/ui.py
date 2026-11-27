@@ -1,3 +1,10 @@
+# ============================================================
+# ui.py - Modul Antarmuka Pengguna Grafis (GUI) Musikify
+# Menggunakan library standar Tkinter dan TTK.
+# pengurutan (Merge Sort & Selection Sort), form input lagu baru,
+# penghapusan data, visualisasi data, pelaporan, dan test runner.
+# ============================================================
+
 import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 

@@ -1,3 +1,9 @@
+# ============================================================
+# main.py - File Eksekutabel Utama Aplikasi Musikify
+# Mengimpor package 'musikify' dan menjalankan antarmuka
+# grafis berbasis Tkinter (GUI).
+# ============================================================
+
 from musikify import (
     inisialisasi_file,
     jalankan_aplikasi_ui,
@@ -10,3 +16,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+

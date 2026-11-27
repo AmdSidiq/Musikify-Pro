@@ -1,2 +1,13 @@
 judul|artis|genre|durasi|tahun
 No Surprises|Radiohead|Pop|229|1998
+Shape of You|Ed Sheeran|Pop|234|2017
+Blinding Lights|The Weeknd|Pop|200|2020
+Hotel California|Eagles|Rock|391|1977
+Billie Jean|Michael Jackson|Pop|294|1982
+Hati-Hati di Jalan|Tulus|Pop|242|2022
+Komang|Raim Laode|Indie|223|2022
+Rayuan Perempuan Gila|Nadin Amizah|Indie|312|2023
+Fly Me to the Moon|Frank Sinatra|Jazz|147|1964
+Take Five|Dave Brubeck|Jazz|324|1959
+Sial|Mahalini|Pop|243|2023
+Fix You|Coldplay|Rock|295|2005

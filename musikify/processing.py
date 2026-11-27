@@ -64,7 +64,7 @@ class Lagu:
         return f"<Lagu: {self.judul} oleh {self.artis}>"
 
 # ============================================================
-# ALGORITMA PENGURUTAN (SORTING)
+# ALGORITMA PENGURUTAN (SORTING)x
 # ============================================================
 
 def merge_sort(daftar, key_func=lambda x: x, reverse=False):
